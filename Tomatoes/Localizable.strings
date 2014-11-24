@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Tomatoes
+
+  Created by Matt Greenwell on 1/5/14.
+  Copyright (c) 2014 Matt Greenwell. All rights reserved.
+*/
+
+"Movie_Detail_Cast_Format" = "Cast Information:\n%@";
+
+"Movie_Detail_Release_Format" = "Released:\n%@";
+
+"Movie_Detail_Rating_Format" = "Rotten Tomatoes Rating: %d";

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>209B4981-D4AE-4B48-BB8A-B6ABDE37196C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Tomatoes</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AFD91B11-1E99-4125-B3B0-8DAC9B7C05EA</key>
+		<string>ssh://bitbucket.org/cform/tomatoes.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Tomatoes.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AFD91B11-1E99-4125-B3B0-8DAC9B7C05EA</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://bitbucket.org/cform/tomatoes.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AFD91B11-1E99-4125-B3B0-8DAC9B7C05EA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AFD91B11-1E99-4125-B3B0-8DAC9B7C05EA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Tomatoes</string>
+		</dict>
+	</array>
+</dict>
+</plist>
