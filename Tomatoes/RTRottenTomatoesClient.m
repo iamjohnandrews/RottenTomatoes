@@ -10,7 +10,6 @@
 
 #import "RTResponseSerializer.h"
 
-#warning YOU NEED TO GET AN API KEY FROM "http://developer.rottentomatoes.com/member/register"
 NSString * const kAPIKey = @"fx6jwcz6zkenn5jfrw993cbr";
 
 NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0/";
@@ -42,8 +41,12 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
     NSDictionary *params = @{@"q" : query,
                              @"apikey" : kAPIKey};
     
-    [self GET:@"movies.json"
-   parameters:params
+    NSString *initialBoxOffice = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=16&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
+
+
+    //@"movies.json"
+    [self GET:initialBoxOffice
+   parameters:nil
       success:^(NSURLSessionDataTask *task, id responseObject) {
           success(responseObject);
       } failure:^(NSURLSessionDataTask *task, NSError *error) {

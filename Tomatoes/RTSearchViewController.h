@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RTSearchViewController : UIViewController
+@interface RTSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *moviePosterCollectionView;
 
 @end
