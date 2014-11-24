@@ -9,8 +9,11 @@
 #import "RTSearchViewController.h"
 #import "RTRottenTomatoesClient.h"
 #import "RTMoviePosterCollectionViewCell.h"
+#import "RTMovie.h"
 
 @interface RTSearchViewController ()
+@property (strong, nonatomic) RTMovie *movieDetails;
+@property (strong, nonatomic) NSArray *movieListArray;
 
 @end
 
@@ -28,6 +31,7 @@
     
     [rtNetworking searchMoviesWithQuery:@"action" success:^(NSArray *movies) {
         NSLog(@"movies =%@", movies);
+        self.movieListArray = [[NSArray alloc] initWithArray:movies];
     } failure:^(NSError *error) {
         NSLog(@"error =%@", [error localizedDescription]);
     }];
@@ -38,33 +42,21 @@
     
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - CollectionView Delegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
 
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-#pragma mark - Collection View Data Source Methods
+#pragma mark - CollectionView DataSource Methods
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-
+    return self.movieListArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RTMoviePosterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moviePosterCell" forIndexPath:indexPath];
+    self.movieDetails = self.movieListArray[indexPath.row];
+    
 
     return cell;
 }

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RTMoviePosterCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *moviePosterThumbnail;
 
 @end

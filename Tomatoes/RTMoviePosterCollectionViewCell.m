@@ -10,4 +10,18 @@
 
 @implementation RTMoviePosterCollectionViewCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self resizeImageToThumbnail];
+    
+    self.moviePosterThumbnail.contentMode = UIViewContentModeScaleAspectFill;
+    self.moviePosterThumbnail.clipsToBounds = YES;
+}
+
+- (void)resizeImageToThumbnail
+{
+    
+}
+
 @end
