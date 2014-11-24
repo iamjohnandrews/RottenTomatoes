@@ -41,7 +41,7 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
     NSDictionary *params = @{@"q" : query,
                              @"apikey" : kAPIKey};
     
-    NSString *initialBoxOffice = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=16&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
+    NSString *initialBoxOffice = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=26&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
 
 
     //@"movies.json"

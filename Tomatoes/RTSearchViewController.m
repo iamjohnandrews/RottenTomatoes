@@ -15,14 +15,14 @@
 
 @interface RTSearchViewController ()
 @property (strong, nonatomic) NSArray *movieListArray;
-
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @end
 
 @implementation RTSearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self displaySpinner];
     self.moviePosterCollectionView.delegate = self;
     self.moviePosterCollectionView.dataSource = self;
     
@@ -34,14 +34,17 @@
         NSLog(@"movies =%@", movies);
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
+        [self.spinner stopAnimating];
     } failure:^(NSError *error) {
         NSLog(@"error =%@", [error localizedDescription]);
     }];
 }
 
-- (void)updateUI
+- (void)displaySpinner
 {
-    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.view addSubview:self.spinner];
+    [self.spinner startAnimating];
 }
 
 #pragma mark - CollectionView Delegate Methods
