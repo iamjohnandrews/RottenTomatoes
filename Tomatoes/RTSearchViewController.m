@@ -10,9 +10,10 @@
 #import "RTRottenTomatoesClient.h"
 #import "RTMoviePosterCollectionViewCell.h"
 #import "RTMovie.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+
 
 @interface RTSearchViewController ()
-@property (strong, nonatomic) RTMovie *movieDetails;
 @property (strong, nonatomic) NSArray *movieListArray;
 
 @end
@@ -32,6 +33,7 @@
     [rtNetworking searchMoviesWithQuery:@"action" success:^(NSArray *movies) {
         NSLog(@"movies =%@", movies);
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
+        [self.moviePosterCollectionView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"error =%@", [error localizedDescription]);
     }];
@@ -43,7 +45,10 @@
 }
 
 #pragma mark - CollectionView Delegate Methods
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Got Touched");
+}
 
 #pragma mark - CollectionView DataSource Methods
 
@@ -55,8 +60,18 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RTMoviePosterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moviePosterCell" forIndexPath:indexPath];
-    self.movieDetails = self.movieListArray[indexPath.row];
+    RTMovie *movieDetails = self.movieListArray[indexPath.row];
     
+    NSURLRequest *request = [NSURLRequest requestWithURL:movieDetails.thumbnailURL];
+    [cell.moviePosterThumbnail setImageWithURLRequest:request
+                                     placeholderImage:nil
+                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                  cell.moviePosterThumbnail.image = image;
+                                              }
+                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                  NSLog(@"WTF error =%@ %@", [error localizedDescription], [error description]);
+                                              }];
+
 
     return cell;
 }
