@@ -38,15 +38,19 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
                       failure:(void (^)(NSError *))failure {
     
     //@TODO: apikey needs to be sent with everything, so factor this out.
-    NSDictionary *params = @{@"q" : query,
-                             @"apikey" : kAPIKey};
+    NSDictionary *params = [NSDictionary dictionary];
     
-    NSString *initialBoxOffice = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=26&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
-
-
+    if (!query) {
+        query = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=36&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
+        params = nil;
+    } else {
+        params = @{@"q" : query,
+                   @"apikey" : kAPIKey};
+    }
+    
     //@"movies.json"
-    [self GET:initialBoxOffice
-   parameters:nil
+    [self GET:query
+   parameters:params
       success:^(NSURLSessionDataTask *task, id responseObject) {
           success(responseObject);
       } failure:^(NSURLSessionDataTask *task, NSError *error) {

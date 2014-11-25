@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSArray *movieListArray;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
+@property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
 @end
 
 @implementation RTSearchViewController
@@ -27,13 +27,19 @@
     [self displaySpinner];
     self.moviePosterCollectionView.delegate = self;
     self.moviePosterCollectionView.dataSource = self;
+    self.searchBar.delegate = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [RTRottenTomatoesClient sharedInstance];
     
-    RTRottenTomatoesClient *rtNetworking = [[RTRottenTomatoesClient alloc] init];
+    self.rtNetworking = [[RTRottenTomatoesClient alloc] init];
     
-    [rtNetworking searchMoviesWithQuery:@"action" success:^(NSArray *movies) {
+    [self getMoviesFor:nil];
+}
+
+- (void)getMoviesFor:(NSString *)searchTerm
+{
+    [self.rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
         NSLog(@"movies =%@", movies);
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
@@ -48,12 +54,16 @@
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [self.view addSubview:self.spinner];
     [self.spinner startAnimating];
+    
+    self.spinner.center = CGPointMake(self.view.center.x, self.view.frame.origin.y + self.navigationController.navigationBar.frame.size.height + self.searchBar.frame.size.height + 50.0f);
+    self.spinner.hidesWhenStopped = YES;
 }
 
 #pragma mark - SearchBar Delegate Methods
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
+    [self displaySpinner];
+    [self getMoviesFor:searchBar.text];
 }
 
 #pragma mark - CollectionView Delegate Methods
