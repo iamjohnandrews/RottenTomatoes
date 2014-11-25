@@ -16,6 +16,8 @@
 @interface RTSearchViewController ()
 @property (strong, nonatomic) NSArray *movieListArray;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @end
 
 @implementation RTSearchViewController
@@ -25,6 +27,7 @@
     [self displaySpinner];
     self.moviePosterCollectionView.delegate = self;
     self.moviePosterCollectionView.dataSource = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [RTRottenTomatoesClient sharedInstance];
     
@@ -45,6 +48,12 @@
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [self.view addSubview:self.spinner];
     [self.spinner startAnimating];
+}
+
+#pragma mark - SearchBar Delegate Methods
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    
 }
 
 #pragma mark - CollectionView Delegate Methods

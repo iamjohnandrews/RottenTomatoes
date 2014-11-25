@@ -12,22 +12,34 @@
 	<dict>
 		<key>9C1A1064B3700AA242B9B813028EEFE8624F329F</key>
 		<string>ssh://bitbucket.org/cform/tomatoes.git</string>
+		<key>A3557CB093997F541DC51A5E759340B0478D4A60</key>
+		<string>github.com:iamjohnandrews/RottenTomatoes.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Tomatoes.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>9C1A1064B3700AA242B9B813028EEFE8624F329F</key>
+		<string>../../Tomatoes</string>
+		<key>A3557CB093997F541DC51A5E759340B0478D4A60</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://bitbucket.org/cform/tomatoes.git</string>
+	<string>github.com:iamjohnandrews/RottenTomatoes.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9C1A1064B3700AA242B9B813028EEFE8624F329F</string>
+	<string>A3557CB093997F541DC51A5E759340B0478D4A60</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A3557CB093997F541DC51A5E759340B0478D4A60</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RottenTomatoes</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
