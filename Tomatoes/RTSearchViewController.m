@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
 @property (strong, nonatomic) RTMovie *userSelectedMovie;
+@property (strong, nonatomic) NSArray *favoriteMoviesArray;
 @end
 
 @implementation RTSearchViewController
@@ -37,6 +38,27 @@
     self.rtNetworking = [[RTRottenTomatoesClient alloc] init];
     
     [self getMoviesFor:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteMovies"];
+    self.favoriteMoviesArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    if (self.favoriteMoviesArray) {
+        UIBarButtonItem *userFavoritesButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                             target:self
+                                                                                             action:@selector(userFavoritesButtonTapped)];
+        self.navigationItem.rightBarButtonItem = userFavoritesButton;
+    }
+}
+
+- (void)userFavoritesButtonTapped
+{
+    self.movieListArray = self.favoriteMoviesArray;
+    [self.moviePosterCollectionView reloadData];
 }
 
 - (void)getMoviesFor:(NSString *)searchTerm
