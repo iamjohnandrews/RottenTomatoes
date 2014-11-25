@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-AMRatingControl.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A4F9DB147601269E464C6E99</key>
+		<key>AF9AC586B48316462739821E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B00DAABE4C45475E30300BC5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CBB28B79DBA62E6AA057AC59</key>
+		<key>E2314F793B73E9538977F630</key>
 		<dict>
 			<key>primary</key>
 			<true/>

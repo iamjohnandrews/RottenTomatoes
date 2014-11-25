@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *castLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
-
+@property (strong, nonatomic) NSMutableArray *favoriteMoviesArray;
 @end
 
 @implementation RTMovieDetailViewController
@@ -33,6 +33,7 @@
     if (self.movie != nil) {
         [self configureViewWithMovie:self.movie];
     }
+    
 }
 
 - (void)setMovie:(RTMovie *)movie {
@@ -50,6 +51,39 @@
 
 - (void)addTapped {
     // @TODO: Add to Favorites!
+    if ([self checkIfMovieIsALreadyFavorited:self.movie]) {
+        [self displayAlertMessage:@"You've already saved this movie."];
+    } else {
+        [self.favoriteMoviesArray addObject:[NSKeyedArchiver archivedDataWithRootObject:self.movie]];
+        [[NSUserDefaults standardUserDefaults] setObject:self.favoriteMoviesArray forKey:@"favoriteMovies"];
+        [self displayAlertMessage:@"This movie has been saved to your favorites."];
+    }
+}
+
+- (BOOL)checkIfMovieIsALreadyFavorited:(RTMovie *)selectedMovie
+{
+    BOOL alreadyFavorited = NO;
+    
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteMovies"];
+    self.favoriteMoviesArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    for (RTMovie *movie in self.favoriteMoviesArray) {
+        if ([movie.movieID isEqualToString:selectedMovie.movieID]) {
+            alreadyFavorited = YES;
+        }
+    }
+    
+    return alreadyFavorited;
+}
+
+- (void)displayAlertMessage:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:message
+                                                    message:@"Feel free to find other movies to add to your favorites."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - Helpers
