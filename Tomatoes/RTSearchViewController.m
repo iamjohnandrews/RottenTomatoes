@@ -11,6 +11,7 @@
 #import "RTMoviePosterCollectionViewCell.h"
 #import "RTMovie.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "RTMovieDetailViewController.h"
 
 
 @interface RTSearchViewController ()
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
+@property (strong, nonatomic) RTMovie *userSelectedMovie;
 @end
 
 @implementation RTSearchViewController
@@ -77,6 +79,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Got Touched");
+    self.userSelectedMovie = self.movieListArray[indexPath.row];
+    [self performSegueWithIdentifier:@"SearchToMovieDetailsSegue" sender:self];
 }
 
 #pragma mark - CollectionView DataSource Methods
@@ -103,6 +107,14 @@
 
 
     return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SearchToMovieDetailsSegue"]) {
+        RTMovieDetailViewController *movieDetailsVC = segue.destinationViewController;
+        movieDetailsVC.movie = self.userSelectedMovie;
+    }
 }
 
 @end

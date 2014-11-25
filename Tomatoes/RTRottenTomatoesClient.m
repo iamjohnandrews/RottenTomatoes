@@ -42,11 +42,13 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
     NSString *addOn;
     if (!query) {
         addOn = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=36&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
-        params = nil;
     } else {
-        addOn = @"movies.json";
-        params = @{@"q" : query,
-                   @"apikey" : kAPIKey};
+        NSString *replaceWhiteSPaceWithPlusSign = [query stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        addOn =[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=%@&page_limit=36&page=1&apikey=fx6jwcz6zkenn5jfrw993cbr", replaceWhiteSPaceWithPlusSign];
+
+//        addOn = @"movies.json";
+//        params = @{@"q" : query,
+//                   @"apikey" : kAPIKey};
     }
     
     [self GET:addOn
