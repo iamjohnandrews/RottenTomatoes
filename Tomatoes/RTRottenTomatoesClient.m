@@ -39,17 +39,17 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
     
     //@TODO: apikey needs to be sent with everything, so factor this out.
     NSDictionary *params = [NSDictionary dictionary];
-    
+    NSString *addOn;
     if (!query) {
-        query = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=36&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
+        addOn = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=36&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
         params = nil;
     } else {
+        addOn = @"movies.json";
         params = @{@"q" : query,
                    @"apikey" : kAPIKey};
     }
     
-    //@"movies.json"
-    [self GET:query
+    [self GET:addOn
    parameters:params
       success:^(NSURLSessionDataTask *task, id responseObject) {
           success(responseObject);

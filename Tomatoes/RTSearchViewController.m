@@ -45,7 +45,14 @@
         [self.moviePosterCollectionView reloadData];
         [self.spinner stopAnimating];
     } failure:^(NSError *error) {
-        NSLog(@"error =%@", [error localizedDescription]);
+        NSLog(@"error =%@, %@", [error localizedDescription], [error description]);
+        [self.spinner stopAnimating];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Houston, we have a problem."
+                                                        message:@"Sorry, but we are unable to find your movie. Please try again."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
