@@ -22,6 +22,7 @@
 @property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
 @property (strong, nonatomic) RTMovie *userSelectedMovie;
 @property (strong, nonatomic) NSArray *favoriteMoviesArray;
+@property (strong, nonatomic) NSArray *previousMovieResultsArray;
 @property (strong, nonatomic) UIBarButtonItem *userFavoritesButton;
 @end
 
@@ -41,9 +42,10 @@
     
     [self getMoviesFor:nil];
     
-    self.userFavoritesButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                                         target:self
-                                                                                         action:@selector(userFavoritesButtonTapped)];
+    self.userFavoritesButton = [[UIBarButtonItem alloc] initWithTitle:@"Favorites"
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                               action:@selector(userFavoritesButtonTapped:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -57,9 +59,19 @@
     }
 }
 
-- (void)userFavoritesButtonTapped
+- (void)userFavoritesButtonTapped:(id)sender
 {
-    self.movieListArray = self.favoriteMoviesArray;
+    UIBarButtonItem *favoritesButton = (UIBarButtonItem *) sender;
+    
+    if ([favoritesButton.title isEqualToString:@"Favorites"]) {
+        self.previousMovieResultsArray = [self.movieListArray copy];
+        self.movieListArray = self.favoriteMoviesArray;
+        self.userFavoritesButton.title = @"Back";
+    } else {
+        self.userFavoritesButton.title = @"Favorites";
+        self.movieListArray = self.previousMovieResultsArray;
+    }
+
     [self.moviePosterCollectionView reloadData];
 }
 
