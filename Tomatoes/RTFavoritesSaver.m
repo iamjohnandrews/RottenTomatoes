@@ -15,10 +15,10 @@
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *filePath = [[documentsPath stringByAppendingString:@"/movieFavorites"] stringByAppendingString:movieID];
-    BOOL fileExists = [fileManager fileExistsAtPath:filePath];
+    NSString *movieFilePath = [[documentsPath stringByAppendingString:@"/movieFavorites/"] stringByAppendingString:movieID];
+    BOOL movieExists = [fileManager fileExistsAtPath:movieFilePath];
   
-    return fileExists;
+    return movieExists;
 }
 
 + (void)saveMovie:(RTMovie *)movie

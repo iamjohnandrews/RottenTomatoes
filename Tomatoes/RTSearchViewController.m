@@ -109,6 +109,8 @@
 {
     [self displaySpinner];
     [self getMoviesFor:searchBar.text];
+    [searchBar resignFirstResponder];
+    searchBar.text = nil;
 }
 
 #pragma mark - CollectionView Delegate Methods
