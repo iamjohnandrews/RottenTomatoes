@@ -9,41 +9,51 @@
 #import "RTFavoritesSaver.h"
 #import "RTMovie.h"
 
+@interface RTFavoritesSaver ()
+@property (strong, nonatomic) NSFileManager *fileManager;
+@property (strong, nonatomic) NSString *allFavoritesPath;
+@property (strong, nonatomic) NSString *favoritesDirectory;
+
+@end
+
 @implementation RTFavoritesSaver
 
-+ (BOOL)checkIfMovieIsAlreadyFavorited:(NSString *)movieID
+- (instancetype)init
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *movieFilePath = [[documentsPath stringByAppendingString:@"/movieFavorites/"] stringByAppendingString:movieID];
-    BOOL movieExists = [fileManager fileExistsAtPath:movieFilePath];
+    self = [super init];
+    if (self) {
+        self.fileManager = [NSFileManager defaultManager];
+        self.allFavoritesPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        self.favoritesDirectory = [self.allFavoritesPath stringByAppendingString:@"/movieFavorites"];
+    }
+    return self;
+}
+
+- (BOOL)checkIfMovieIsAlreadyFavorited:(NSString *)movieID
+{
+    NSString *movieFilePath = [[self.allFavoritesPath stringByAppendingString:@"/movieFavorites/"] stringByAppendingString:movieID];
+    BOOL movieExists = [self.fileManager fileExistsAtPath:movieFilePath];
   
     return movieExists;
 }
 
-+ (void)saveMovie:(RTMovie *)movie
+- (void)saveMovie:(RTMovie *)movie
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *favoritesDirectory = [documentsPath stringByAppendingString:@"/movieFavorites"];
-    if (![fileManager fileExistsAtPath:favoritesDirectory]) {
-        [fileManager createDirectoryAtPath:favoritesDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![self.fileManager fileExistsAtPath:self.favoritesDirectory]) {
+        [self.fileManager createDirectoryAtPath:self.favoritesDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    NSString *moviePath = [favoritesDirectory stringByAppendingPathComponent:movie.movieID];
+    NSString *moviePath = [self.favoritesDirectory stringByAppendingPathComponent:movie.movieID];
     
     [NSKeyedArchiver archiveRootObject:movie toFile:moviePath];
 }
 
-+ (NSArray *)fetchAllMovieFavorites
+- (NSArray *)fetchAllMovieFavorites
 {
     NSMutableArray *favoitesArray = [NSMutableArray array];
 
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *favoritesDirectoryPath = [documentsPath stringByAppendingString:@"/movieFavorites"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *favoritesURL = [NSURL URLWithString:favoritesDirectoryPath];
-    NSArray *contents = [fileManager contentsOfDirectoryAtURL:favoritesURL
+    NSURL *favoritesURL = [NSURL URLWithString:self.favoritesDirectory];
+    NSArray *contents = [self.fileManager contentsOfDirectoryAtURL:favoritesURL
                                    includingPropertiesForKeys:@[]
                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
                                                         error:nil];
@@ -55,16 +65,5 @@
     return favoitesArray;
 }
 
-+ (void)deleteMovieFromFavorites:(NSString *)movieID
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *movieFilePath = [[documentsPath stringByAppendingPathComponent:@"/movieFavorites"] stringByAppendingString:movieID];
-    NSError *error = nil;
-    
-    if (![fileManager removeItemAtPath:movieFilePath error:&error]) {
-        NSLog(@"error =%@, %@ for movieFilePath =%@", [error localizedDescription], [error description], movieFilePath);
-    }
-}
 
 @end

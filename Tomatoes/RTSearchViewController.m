@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSArray *favoriteMoviesArray;
 @property (strong, nonatomic) NSArray *previousMovieResultsArray;
 @property (strong, nonatomic) UIBarButtonItem *userFavoritesButton;
+@property (strong, nonatomic) RTFavoritesSaver *favoritesSaver;
 @end
 
 @implementation RTSearchViewController
@@ -37,8 +38,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [RTRottenTomatoesClient sharedInstance];
-    
     self.rtNetworking = [[RTRottenTomatoesClient alloc] init];
+    self.favoritesSaver = [[RTFavoritesSaver alloc] init];
     
     [self getMoviesFor:nil];
     
@@ -52,7 +53,7 @@
 {
     [super viewDidAppear:animated];
     
-    self.favoriteMoviesArray = [RTFavoritesSaver fetchAllMovieFavorites];
+    self.favoriteMoviesArray = [self.favoritesSaver fetchAllMovieFavorites];
     
     if (self.favoriteMoviesArray.count) {
         self.navigationItem.rightBarButtonItem = self.userFavoritesButton;

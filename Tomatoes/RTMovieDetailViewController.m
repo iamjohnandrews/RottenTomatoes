@@ -16,13 +16,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *castLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
+@property (strong, nonatomic) RTFavoritesSaver *favoritesSaver;
+
 @end
 
 @implementation RTMovieDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.favoritesSaver = [[RTFavoritesSaver alloc] init];
+
     UIBarButtonItem *favoriteButton;
     favoriteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                                    target:self
@@ -50,10 +53,10 @@
 
 - (void)addTapped {
     // @TODO: Add to Favorites!
-    if ([RTFavoritesSaver checkIfMovieIsAlreadyFavorited:self.movie.movieID]) {
+    if ([self.favoritesSaver checkIfMovieIsAlreadyFavorited:self.movie.movieID]) {
         [self displayAlertMessage:@"You already saved this movie."];
     } else {
-        [RTFavoritesSaver saveMovie:self.movie];
+        [self.favoritesSaver saveMovie:self.movie];
         [self displayAlertMessage:@"Movie saved to favorites."];
     }
 }
@@ -62,7 +65,7 @@
 - (void)displayAlertMessage:(NSString *)message
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:message
-                                                    message:@"Feel free to find other movies to add to your favorites."
+                                                    message:@"Feel free to find more movies to add to your favorites."
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];

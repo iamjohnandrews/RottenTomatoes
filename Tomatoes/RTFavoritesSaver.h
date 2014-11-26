@@ -11,9 +11,8 @@
 
 
 @interface RTFavoritesSaver : NSObject
-+ (BOOL)checkIfMovieIsAlreadyFavorited:(NSString *)movieID;
-+ (void)saveMovie:(RTMovie *)movie;
-+ (NSArray *)fetchAllMovieFavorites;
-+ (void)deleteMovieFromFavorites:(NSString *)movieID;
+- (BOOL)checkIfMovieIsAlreadyFavorited:(NSString *)movieID;
+- (void)saveMovie:(RTMovie *)movie;
+- (NSArray *)fetchAllMovieFavorites;
 
 @end
