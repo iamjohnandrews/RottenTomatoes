@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSArray *movieListArray;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
 @property (strong, nonatomic) RTMovie *userSelectedMovie;
 @property (strong, nonatomic) NSArray *favoriteMoviesArray;
 @property (strong, nonatomic) NSArray *previousMovieResultsArray;
@@ -29,16 +28,17 @@
 
 @implementation RTSearchViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    [RTRottenTomatoesClient sharedInstance];
     [self displaySpinner];
+    
     self.moviePosterCollectionView.delegate = self;
     self.moviePosterCollectionView.dataSource = self;
     self.searchBar.delegate = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [RTRottenTomatoesClient sharedInstance];
-    self.rtNetworking = [[RTRottenTomatoesClient alloc] init];
     self.favoritesSaver = [[RTFavoritesSaver alloc] init];
     
     [self getMoviesFor:nil];
@@ -46,7 +46,7 @@
     self.userFavoritesButton = [[UIBarButtonItem alloc] initWithTitle:@"Favorites"
                                                              style:UIBarButtonItemStylePlain
                                                             target:self
-                                                               action:@selector(userFavoritesButtonTapped:)];
+                                                            action:@selector(userFavoritesButtonTapped:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -78,7 +78,9 @@
 
 - (void)getMoviesFor:(NSString *)searchTerm
 {
-    [self.rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
+    RTRottenTomatoesClient *rtNetworking = [[RTRottenTomatoesClient alloc] init];
+
+    [rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
         [self.spinner stopAnimating];
