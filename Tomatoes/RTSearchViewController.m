@@ -12,6 +12,7 @@
 #import "RTMovie.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "RTMovieDetailViewController.h"
+#import "RTFavoritesSaver.h"
 
 
 @interface RTSearchViewController ()
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) RTRottenTomatoesClient *rtNetworking;
 @property (strong, nonatomic) RTMovie *userSelectedMovie;
 @property (strong, nonatomic) NSArray *favoriteMoviesArray;
+@property (strong, nonatomic) UIBarButtonItem *userFavoritesButton;
 @end
 
 @implementation RTSearchViewController
@@ -38,20 +40,20 @@
     self.rtNetworking = [[RTRottenTomatoesClient alloc] init];
     
     [self getMoviesFor:nil];
+    
+    self.userFavoritesButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                         target:self
+                                                                                         action:@selector(userFavoritesButtonTapped)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteMovies"];
-    self.favoriteMoviesArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.favoriteMoviesArray = [RTFavoritesSaver fetchAllMovieFavorites];
     
-    if (self.favoriteMoviesArray) {
-        UIBarButtonItem *userFavoritesButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                                             target:self
-                                                                                             action:@selector(userFavoritesButtonTapped)];
-        self.navigationItem.rightBarButtonItem = userFavoritesButton;
+    if (self.favoriteMoviesArray.count) {
+        self.navigationItem.rightBarButtonItem = self.userFavoritesButton;
     }
 }
 
@@ -64,7 +66,7 @@
 - (void)getMoviesFor:(NSString *)searchTerm
 {
     [self.rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
-        NSLog(@"movies =%@", movies);
+//        NSLog(@"movies =%@", movies);
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
         [self.spinner stopAnimating];

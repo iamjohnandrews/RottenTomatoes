@@ -67,9 +67,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Zha-wp-Ej3">
-                        <barButtonItem key="rightBarButtonItem" title="Favorites" id="M08-lV-p63"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Zha-wp-Ej3"/>
                     <connections>
                         <outlet property="moviePosterCollectionView" destination="EfZ-nd-Y5C" id="dnO-3e-yal"/>
                         <outlet property="searchBar" destination="l9w-9L-y4c" id="Kct-iA-qvi"/>

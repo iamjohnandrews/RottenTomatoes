@@ -28,6 +28,7 @@
 		40F332C818777BFF00A0A70F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40F332C618777BFF00A0A70F /* InfoPlist.strings */; };
 		40F332CA18777BFF00A0A70F /* TomatoesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F332C918777BFF00A0A70F /* TomatoesTests.m */; };
 		B0BD29321A23C76F00EF0F78 /* RTMoviePosterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BD29311A23C76F00EF0F78 /* RTMoviePosterCollectionViewCell.m */; };
+		B0BD29351A251C3B00EF0F78 /* RTFavoritesSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BD29341A251C3B00EF0F78 /* RTFavoritesSaver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		83CF8F11C56343518C8B353E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0BD29301A23C76F00EF0F78 /* RTMoviePosterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMoviePosterCollectionViewCell.h; sourceTree = "<group>"; };
 		B0BD29311A23C76F00EF0F78 /* RTMoviePosterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMoviePosterCollectionViewCell.m; sourceTree = "<group>"; };
+		B0BD29331A251C3B00EF0F78 /* RTFavoritesSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTFavoritesSaver.h; sourceTree = "<group>"; };
+		B0BD29341A251C3B00EF0F78 /* RTFavoritesSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTFavoritesSaver.m; sourceTree = "<group>"; };
 		B8AA1E1B4E3F7F0BAB474CFE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +129,8 @@
 			children = (
 				4002451B1878FAEF00EE2892 /* RTMovie.h */,
 				4002451C1878FAEF00EE2892 /* RTMovie.m */,
+				B0BD29331A251C3B00EF0F78 /* RTFavoritesSaver.h */,
+				B0BD29341A251C3B00EF0F78 /* RTFavoritesSaver.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				40F332AB18777BFE00A0A70F /* main.m in Sources */,
 				400245191878F5A600EE2892 /* RTResponseSerializer.m in Sources */,
 				4002451618787E9800EE2892 /* RTRottenTomatoesClient.m in Sources */,
+				B0BD29351A251C3B00EF0F78 /* RTFavoritesSaver.m in Sources */,
 				40024527187A044E00EE2892 /* RTMovieDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
