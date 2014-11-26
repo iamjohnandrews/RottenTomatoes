@@ -38,21 +38,16 @@ NSString * const baseURLString = @"http://api.rottentomatoes.com/api/public/v1.0
                       failure:(void (^)(NSError *))failure {
     
     //@TODO: apikey needs to be sent with everything, so factor this out.
-    NSDictionary *params = [NSDictionary dictionary];
     NSString *addOn;
     if (!query) {
         addOn = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?limit=36&country=us&apikey=fx6jwcz6zkenn5jfrw993cbr";
     } else {
         NSString *replaceWhiteSPaceWithPlusSign = [query stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         addOn =[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=%@&page_limit=36&page=1&apikey=fx6jwcz6zkenn5jfrw993cbr", replaceWhiteSPaceWithPlusSign];
-
-//        addOn = @"movies.json";
-//        params = @{@"q" : query,
-//                   @"apikey" : kAPIKey};
     }
     
     [self GET:addOn
-   parameters:params
+   parameters:nil
       success:^(NSURLSessionDataTask *task, id responseObject) {
           success(responseObject);
       } failure:^(NSURLSessionDataTask *task, NSError *error) {
