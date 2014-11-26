@@ -78,7 +78,6 @@
 - (void)getMoviesFor:(NSString *)searchTerm
 {
     [self.rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
-//        NSLog(@"movies =%@", movies);
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
         [self.spinner stopAnimating];
@@ -116,7 +115,6 @@
 #pragma mark - CollectionView Delegate Methods
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Got Touched");
     self.userSelectedMovie = self.movieListArray[indexPath.row];
     [self performSegueWithIdentifier:@"SearchToMovieDetailsSegue" sender:self];
 }

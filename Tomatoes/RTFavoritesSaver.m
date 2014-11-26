@@ -32,8 +32,7 @@
     
     NSString *moviePath = [favoritesDirectory stringByAppendingPathComponent:movie.movieID];
     
-    BOOL Result = [NSKeyedArchiver archiveRootObject:movie toFile:moviePath];
-    NSLog(@"save = 1, result = %d for moviepath =%@", Result, moviePath);
+    [NSKeyedArchiver archiveRootObject:movie toFile:moviePath];
 }
 
 + (NSArray *)fetchAllMovieFavorites
@@ -49,7 +48,7 @@
                                                       options:NSDirectoryEnumerationSkipsHiddenFiles
                                                         error:nil];
     for (NSURL *movieFile in contents) {
-        RTMovie *movieDetails = [NSKeyedUnarchiver unarchiveObjectWithFile:movieFile.path]; //why isthis method not working?
+        RTMovie *movieDetails = [NSKeyedUnarchiver unarchiveObjectWithFile:movieFile.path]; 
         [favoitesArray addObject:movieDetails];
     }
     
@@ -64,7 +63,6 @@
     NSError *error = nil;
     
     if (![fileManager removeItemAtPath:movieFilePath error:&error]) {
-        NSLog(@"[Error] %@ (%@)", error, movieFilePath);
         NSLog(@"error =%@, %@ for movieFilePath =%@", [error localizedDescription], [error description], movieFilePath);
     }
 }
