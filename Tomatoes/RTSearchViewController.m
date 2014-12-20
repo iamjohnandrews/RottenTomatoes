@@ -31,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [RTRottenTomatoesClient sharedInstance];
     [self displaySpinner];
     
     self.moviePosterCollectionView.delegate = self;
@@ -78,9 +77,7 @@
 
 - (void)getMoviesFor:(NSString *)searchTerm
 {
-    RTRottenTomatoesClient *rtNetworking = [[RTRottenTomatoesClient alloc] init];
-
-    [rtNetworking searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
+    [[RTRottenTomatoesClient sharedInstance] searchMoviesWithQuery:searchTerm success:^(NSArray *movies) {
         self.movieListArray = [[NSArray alloc] initWithArray:movies];
         [self.moviePosterCollectionView reloadData];
         [self.spinner stopAnimating];
